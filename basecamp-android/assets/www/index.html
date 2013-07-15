@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Basecamp Home</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="css/jquery.mobile-1.0rc1.min.css" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+    
+<body>
+        
+<div id="catlistpage" data-role="page">
+
+	<div data-role="header" data-position="fixed">
+		<h1>Category List</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+		<li><a data-ajax="false"  href="locations.html?post_type=brew">Breweries & Wineries</a></li>
+		<li><a data-ajax="false" href="locations.html?post_type=snowbound">Snowsports</a></li>
+		<li><a data-ajax="false" href="locations.html?post_type=trails">Hike and Bike</a></li>
+		<li><a data-ajax="false" href="locations.html?post_type=river-right">Paddle & Rafting</a></li>
+		</ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+
+            <div data-role="navbar">
+
+                <ul>
+
+                    <!--<li><a href="" data-rel="back" data-icon="arrow-l">Back</a></li>-->
+
+                    <li><a href="map.html" data-icon="grid" data-ajax="false">Map</a></li>
+
+                    <li><a href="about.html" data-rel="dialog" data-transition="slidedown" data-icon="info">About</a></li>
+
+                    <!--<li><a href="index.html" data-icon="home" data-ajax="false">Home</a></li>-->
+
+                </ul>
+
+            </div>
+
+        </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc3.min.js"></script>
+<script type="text/javascript" charset="utf-8"src="js/locationlist.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/locationdetails.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+<script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
+</body>
+
+</html>

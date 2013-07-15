@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Basecamp</title>
+
+    <meta http-equiv="content-language" content="en"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css"></link>
+
+
+
+    <style rel="stylesheet">
+
+    body {  background: #ddd; }
+
+    .ui-body-c a.ui-link { color: #008595; font-weight: bold; text-decoration: none; }
+
+    .hidden { display:none; }
+
+    h1 { font-size: 14px; }
+
+    p { font-size: 12px; font-weight: normal; }
+
+    .iw { background:#eee; padding:10px 10px 10px 10px; width:400px; }
+
+    .iw-description { font-size: 12px; font-weight: normal; }
+
+    .more { text-align: center; }
+
+    </style>
+
+
+
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAwlt7nC7OIt0VjE2BduEvUBThS6BBGAS6lY3G9UdoYm0Q-Rnc3RTNSZX71i8ZKk2CuUP1jKe0k1W2sg"></script>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true" ></script>
+
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="js/custom.js"></script>
+
+    <script type="text/javascript" src="js/jquery.mobile-1.0rc3.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.ui.map.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+	
+	<script type="text/javascript" src="phonegap-1.2.0.js"></script>
+
+</head>
+
+
+
+<body>
+
+    <div id="gmap-4" data-role="page">
+
+        <div data-role="header">
+
+            <a href="" data-role="button" data-rel="back" data-icon="arrow-l">Back</a><h1>Basecamp Map</h1><a href="index.html" class="ui-btn-right" data-role="button" data-icon="home" data-iconpos="right">Home</a>
+
+        </div>
+
+
+
+        <script type="text/javascript">
+
+        $('#gmap-4').live("pageshow", function() {
+
+
+
+
+
+        $('#map_canvas_2').gmap( { 'center': getLatLng(), 'zoom': 9, 'callback':
+
+            function (map) {
+
+
+
+                // Identify the user location and show green marker.
+
+                $('#map_canvas_2').gmap({'center': getLatLng(), 'callback': function () {
+
+                    $('#map_canvas_2').gmap('addMarker', {'position': getLatLng(), 'title': 'Hello world!','icon':new
+
+        google.maps.MarkerImage('marker-green.png')}, function(map,marker) {
+
+                        var content = '<div class="iw"><h1 class="iw-summary">You are here!</h1></div>';
+
+                        $('#map_canvas_2').gmap('addInfoWindow', { 'position': marker.getPosition(), 'content': content },  function(iw) {
+
+                            $(marker).click(function() {
+
+                                iw.open(map, marker);
+
+                                map.panTo( marker.getPosition());
+
+                            });
+
+                        });
+
+                    });
+
+                    }
+
+                });
+
+
+
+                // Show the Farm market locations fetching from json.josn file.
+
+                $.getJSON('http://basecamp.blueridgeoutdoors.com/mconnect/connect.php', function(data) {
+					console.log(data);
+                    $.each( data.markers1, function(i, m) {
+
+                        $('#map_canvas_2').gmap('addMarker', { 'position': new google.maps.LatLng(m.geo_latitude, m.geo_longitude) },
+
+                        function(map, marker) {
+
+                            var directionURL = "http://maps.google.com/maps?q="+m.geo_latitude+","+m.geo_longitude+"&t=m";
+
+                            var content = '<div class="iw"><h1 class="iw-summary">'+m.post_title+'</h1><p class="iw-description">'+m.post_excerpt+'</p><a href='+directionURL+' target="_blank">Get Directions</a></div>';
+
+                            var iw = $('#map_canvas_2').gmap('addInfoWindow', { 'position':marker.getPosition(), 'content': content }, function(iw) {
+
+                                $(marker).click(function() {
+
+                                    iw.open(map, marker);
+
+                                    map.panTo(marker.getPosition());
+
+                                });
+
+                            });
+
+
+
+                        });
+
+                    });
+
+                });
+
+            }
+
+        });
+
+
+
+        function getLatLng() {
+
+            if ( google.loader.ClientLocation != null ) {
+
+                return new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
+
+            }
+
+        return new google.maps.LatLng(38.0293059, -78.4766781);
+
+        }
+
+
+
+        });
+
+
+
+        $('#gmap-4').live("pagehide", function() {
+
+            if ( navigator.geolocation ) {
+
+                navigator.geolocation.clearWatch(watch);
+
+            }
+
+        });
+
+
+
+        $('#gmap-4').live("pagecreate", function() {
+
+            var watch;
+
+        });
+
+
+
+        </script>
+
+        <div class="page" data-role="content">
+
+
+
+            <div>
+
+                <div id="map_canvas_2" style="height:500px;"></div>
+
+            </div>
+
+
+
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+
+            <div data-role="navbar">
+
+                <ul>
+
+                    <li><a href="index.html" data-icon="grid" data-ajax="false">List</a></li>
+
+                    <li><a href="about.html" data-rel="dialog" data-transition="slidedown" data-icon="info">About</a></li>
+
+                    <li><a href="index.html" data-icon="home" data-ajax="false">Home</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

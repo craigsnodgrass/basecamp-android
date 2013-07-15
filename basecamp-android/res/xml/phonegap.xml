@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phonegap>
+    <access origin="http://127.0.0.1*"/>
+    <access origin="http://10.0.2.2:8080*"/>
+    <access origin="http://basecamp.blueridgeoutdoors.com*"/>
+    <access origin="http://*.blueridgeoutdoors.com*"/>
+    <access origin="http://www.google.com*"/>
+    <access origin="http://maps.google.com*"/>
+    <log level="DEBUG"/>
+</phonegap>
